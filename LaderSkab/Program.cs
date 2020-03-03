@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UsbSimulator;
 
 namespace Laderskab
 {
@@ -11,8 +12,11 @@ namespace Laderskab
         static void Main(string[] args)
         {
             // Assemble your system here from all the classes
-            Door.Door door = new Door.Door();
-            RFIDReader.RFIDReader rfidReader = new RFIDReader.RFIDReader();
+            var door = new Door.Door();
+            var rfidReader = new RFIDReader.RFIDReader();
+            var display = new Display.Display();
+            var usbCharger = new UsbChargerSimulator();
+            var stationControl = new Ladeskab.StationControl(door, display, rfidReader, usbCharger);
 
             bool finish = false;
             do

@@ -4,12 +4,15 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Laderskab.Display;
 using Laderskab.Door;
+using Laderskab.RFIDReader;
+using Laderskab.StationControl;
 using UsbSimulator;
 
 namespace Ladeskab
 {
-    public class StationControl
+    public class StationControl : IStationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
@@ -19,19 +22,26 @@ namespace Ladeskab
             DoorOpen
         };
 
-        // Her mangler flere member variable
-        private LadeskabState _state;
         private IUsbCharger _charger;
         private IDoor _door;
-        private int _oldId;
+        private IDisplay _display;
+        private IRFIDReader _rfidReader;
 
+        private LadeskabState _state;
+        private int _oldId;
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
-        // Her mangler constructor
-        public StationControl(IDoor door, IUsbCharger usbcharger)
+        public StationControl(IDoor door, IDisplay display, IRFIDReader rfid, IUsbCharger charger)
         {
             _door = door;
-            _charger = usbcharger;
+            _display = display;
+            _rfidReader = rfid;
+            _charger = charger;
+
+            /* Subscribe to event */
+            _door.DoorOpenedEvent += HandleDoorOpenedEvent;
+            _door.DoorClosedEvent += HandleDoorCloseEvent;
+            _rfidReader.RFIDEvent += HandleRfidDataEvent;
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
@@ -89,5 +99,17 @@ namespace Ladeskab
         }
 
         // Her mangler de andre trigger handlere
+        private void HandleDoorOpenedEvent(object sender, EventArgs args)
+        {
+            _display.DisplayId(DisplayId.ConnectPhone);
+        }
+        private void HandleDoorCloseEvent(object sender, EventArgs args)
+        {
+            _display.DisplayId(DisplayId.WaitingRfid);
+        }
+        private void HandleRfidDataEvent(object sender, RFIDDataEventArgs args)
+        {
+            RfidDetected(args.RFIDtag);
+        }
     }
 }
