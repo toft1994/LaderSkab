@@ -63,6 +63,7 @@ namespace Ladeskab
 
                         Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
                         _state = LadeskabState.Locked;
+                        _display.DisplayId(DisplayId.SlotTaken);
                     }
                     else
                     {
