@@ -49,13 +49,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChargeControl\ChargeControl.cs" />
+    <Compile Include="ChargeControl\IChargeControl.cs" />
+    <Compile Include="Display\Display.cs" />
+    <Compile Include="Display\IDisplay.cs" />
+    <Compile Include="Door\Door.cs" />
+    <Compile Include="Door\IDoor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RFIDReader\IRFIDReader.cs" />
+    <Compile Include="RFIDReader\RFIDReader.cs" />
+    <Compile Include="StationControl\IStationControl.cs" />
+    <Compile Include="StationControl\StationControl.cs" />
+    <Compile Include="USB\IUsbCharger.cs" />
+    <Compile Include="USB\StationControl.cs" />
+    <Compile Include="USB\TestUsbChargerSimulator.cs" />
+    <Compile Include="USB\UsbChargerSimulator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
