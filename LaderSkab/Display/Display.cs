@@ -4,35 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaderSkab.Display
+namespace Laderskab.Display
 {
-    class Display : IDisplay
+    public class Display : IDisplay
     {
-        public void DisplayID(DisplayId id)
+        public void DisplayId(DisplayId id)
         {
             switch (id)
             {
-                case LaderSkab.Display.DisplayId.ConnectPhone:
+                case Laderskab.Display.DisplayId.ConnectPhone:
                     DisplayConnectPhone();
                     break;
 
-                case LaderSkab.Display.DisplayId.RemovePhone:
+                case Laderskab.Display.DisplayId.RemovePhone:
                     DisplayRemovePhone();
                     break;
 
-                case LaderSkab.Display.DisplayId.ConnectionError:
+                case Laderskab.Display.DisplayId.ConnectionError:
                     DisplayConnectionError();
                     break;
 
-                case LaderSkab.Display.DisplayId.SlotTaken:
+                case Laderskab.Display.DisplayId.SlotTaken:
                     DisplayChargingSlotTaken();
                     break;
 
-                case LaderSkab.Display.DisplayId.WaitingRfid:
+                case Laderskab.Display.DisplayId.WaitingRfid:
                     DisplayWaitingForRFID();
                     break;
 
-                case LaderSkab.Display.DisplayId.RfidError:
+                case Laderskab.Display.DisplayId.RfidError:
                     DisplayRFIDError();
                     break;
             }

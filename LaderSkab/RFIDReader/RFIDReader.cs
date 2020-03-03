@@ -4,13 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaderSkab.RFIDReader
+namespace Laderskab.RFIDReader
 {
-    class RFIDReader : IRFIDReader
+    public class RFIDReader : IRFIDReader
     {
-        public void OnRfidRead(string rfid)
-        {
+        public event EventHandler<RFIDDataEventArgs> RFIDEvent;
 
+        public void OnRfidRead(int rfid)
+        {
+            var args = new RFIDDataEventArgs
+            {
+                RFIDtag = rfid
+            };
+            RFIDEvent?.Invoke(this,args);
         }
     }
 }

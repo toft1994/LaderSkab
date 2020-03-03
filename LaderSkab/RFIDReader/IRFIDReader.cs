@@ -4,11 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaderSkab.RFIDReader
+namespace Laderskab.RFIDReader
 {
-    interface IRFIDReader
+    public class RFIDDataEventArgs
     {
+        public int RFIDtag { get; set; }
+    }
 
-        void OnRfidRead(string rfid);
+    public interface IRFIDReader
+    {
+        event EventHandler<RFIDDataEventArgs> RFIDEvent;
+        void OnRfidRead(int rfid);
     }
 }

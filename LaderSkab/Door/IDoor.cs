@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaderSkab.Door
+namespace Laderskab.Door
 {
-    internal interface IDoor
+    public interface IDoor
     {
         event EventHandler DoorOpenedEvent;
         event EventHandler DoorClosedEvent;
+
+        void LockDoor();
+        void UnlockDoor();
     }
 }

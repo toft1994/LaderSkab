@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaderSkab.Display
+namespace Laderskab.Display
 {
     public enum DisplayId
     {
@@ -15,8 +15,8 @@ namespace LaderSkab.Display
         WaitingRfid,
         RfidError
     }
-    interface IDisplay
+    public interface IDisplay
     {
-        void DisplayID(DisplayId id);
+        void DisplayId(DisplayId id);
     }
 }
