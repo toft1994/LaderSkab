@@ -6,17 +6,29 @@ using System.Threading.Tasks;
 
 namespace Laderskab.Display
 {
-    public enum DisplayId
+    public enum DisplayMessageId
     {
         ConnectPhone,
         RemovePhone,
         ConnectionError,
         SlotTaken,
         WaitingRfid,
-        RfidError
+        RfidError,
+        Nothing,
+    }
+
+    public enum DisplayChargeId
+    {
+        FullyCharged,
+        Charging,
+        ConnectionError,
+        ShortCircuit,
+        Nothing,
     }
     public interface IDisplay
     {
-        void DisplayId(DisplayId id);
+        DisplayChargeId CurrentChargeId { get; set; }
+        DisplayMessageId CurrentMessageId { get; set; }
+        void UpdateDisplay();
     }
 }

@@ -16,13 +16,14 @@ namespace Laderskab
             var rfidReader = new RFIDReader.RFIDReader();
             var display = new Display.Display();
             var usbCharger = new UsbChargerSimulator();
-            var stationControl = new Ladeskab.StationControl(door, display, rfidReader, usbCharger);
+            var chargeControl = new LaderSkab.ChargeControl.ChargeControl(display, usbCharger);
+            var stationControl = new Ladeskab.StationControl(door, display, rfidReader, chargeControl);
 
             bool finish = false;
             do
             {
                 string input;
-                System.Console.WriteLine("Indtast E, O, C, R: ");
+                //System.Console.WriteLine("Indtast E, O, C, R: ");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
@@ -46,6 +47,21 @@ namespace Laderskab
 
                         int id = Convert.ToInt32(idString);
                         rfidReader.OnRfidRead(id);
+                        break;
+
+                    case 'B':
+                        usbCharger.SimulateConnected(true);
+                        usbCharger.SimulateOverload(false);
+                        break;
+
+                    case 'N':
+                        usbCharger.SimulateConnected(false);
+                        usbCharger.SimulateOverload(false);
+                        break;
+
+                    case 'M':
+                        usbCharger.SimulateOverload(true);
+                        usbCharger.SimulateConnected(true);
                         break;
 
                     default:

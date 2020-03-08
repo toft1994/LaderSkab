@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LaderSkab.ChargeControl;
 using Laderskab.Display;
 using Laderskab.Door;
 using Laderskab.RFIDReader;
@@ -22,7 +23,7 @@ namespace Ladeskab
             DoorOpen
         };
 
-        private IUsbCharger _charger;
+        private IChargeControl _chargeControl;
         private IDoor _door;
         private IDisplay _display;
         private IRFIDReader _rfidReader;
@@ -31,12 +32,12 @@ namespace Ladeskab
         private int _oldId;
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
-        public StationControl(IDoor door, IDisplay display, IRFIDReader rfid, IUsbCharger charger)
+        public StationControl(IDoor door, IDisplay display, IRFIDReader rfid, IChargeControl charger)
         {
             _door = door;
             _display = display;
             _rfidReader = rfid;
-            _charger = charger;
+            _chargeControl = charger;
 
             /* Subscribe to event */
             _door.DoorOpenedEvent += HandleDoorOpenedEvent;
@@ -51,23 +52,24 @@ namespace Ladeskab
             {
                 case LadeskabState.Available:
                     // Check for ladeforbindelse
-                    if (_charger.Connected)
+                    if (_chargeControl.IsConnected())
                     {
                         _door.LockDoor();
-                        _charger.StartCharge();
+                        _chargeControl.StartCharge();
                         _oldId = id;
                         using (var writer = File.AppendText(logFile))
                         {
                             writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
                         }
 
-                        Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
                         _state = LadeskabState.Locked;
-                        _display.DisplayId(DisplayId.SlotTaken);
+                        _display.CurrentMessageId = DisplayMessageId.SlotTaken;
+                        _display.UpdateDisplay();
                     }
                     else
                     {
-                        Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
+                        _display.CurrentMessageId = DisplayMessageId.ConnectionError;
+                        _display.UpdateDisplay();
                     }
 
                     break;
@@ -80,33 +82,37 @@ namespace Ladeskab
                     // Check for correct ID
                     if (id == _oldId)
                     {
-                        _charger.StopCharge();
+                        _chargeControl.StopCharge();
                         _door.UnlockDoor();
                         using (var writer = File.AppendText(logFile))
                         {
                             writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
                         }
 
-                        Console.WriteLine("Tag din telefon ud af skabet og luk døren");
+                        _display.CurrentMessageId = DisplayMessageId.RemovePhone;
+                        _display.UpdateDisplay();
                         _state = LadeskabState.Available;
                     }
                     else
                     {
-                        Console.WriteLine("Forkert RFID tag");
+                        _display.CurrentMessageId = DisplayMessageId.RfidError;
+                        _display.UpdateDisplay();
                     }
 
                     break;
             }
         }
 
-        // Her mangler de andre trigger handlere
+        /* Handware triggere */
         private void HandleDoorOpenedEvent(object sender, EventArgs args)
         {
-            _display.DisplayId(DisplayId.ConnectPhone);
+            _display.CurrentMessageId = DisplayMessageId.ConnectPhone;
+            _display.UpdateDisplay();
         }
         private void HandleDoorCloseEvent(object sender, EventArgs args)
         {
-            _display.DisplayId(DisplayId.WaitingRfid);
+            _display.CurrentMessageId = DisplayMessageId.Nothing;
+            _display.UpdateDisplay();
         }
         private void HandleRfidDataEvent(object sender, RFIDDataEventArgs args)
         {

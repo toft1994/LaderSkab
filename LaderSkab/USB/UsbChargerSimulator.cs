@@ -9,7 +9,7 @@ namespace UsbSimulator
         private const double MaxCurrent = 500.0; // mA
         private const double FullyChargedCurrent = 2.5; // mA
         private const double OverloadCurrent = 750; // mA
-        private const int ChargeTimeMinutes = 20; // minutes
+        private const int ChargeTimeMinutes = 1; // minutes
         private const int CurrentTickInterval = 250; // ms
 
         public event EventHandler<CurrentEventArgs> CurrentValueEvent;
@@ -88,12 +88,13 @@ namespace UsbSimulator
                     CurrentValue = 0.0;
                 }
 
-                OnNewCurrent();
                 _ticksSinceStart = 0;
 
                 _charging = true;
 
                 _timer.Start();
+
+                OnNewCurrent();
             }
         }
 
