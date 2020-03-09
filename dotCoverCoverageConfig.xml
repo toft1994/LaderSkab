@@ -20,17 +20,17 @@
         <FunctionMask>*</FunctionMask>
       </FilterEntry>
 
-      <FilterEntry>
+      <!--<FilterEntry>
         <ModuleMask>Calculator</ModuleMask>
         <ClassMask>Calculator.Program</ClassMask>
         <FunctionMask>*</FunctionMask>
-      </FilterEntry>
+      </FilterEntry>-->
 
-      <FilterEntry>
+      <!--<FilterEntry>
         <ModuleMask>Calculator.Test.Unit</ModuleMask>
         <ClassMask>*</ClassMask>
         <FunctionMask>*</FunctionMask>
-      </FilterEntry>
+      </FilterEntry>-->
     </ExcludeFilters>
   </Filters>
   <!-- Attribute filters. It's possible to use asterisks as wildcard symbols.
