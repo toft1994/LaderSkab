@@ -26,11 +26,11 @@
         <FunctionMask>*</FunctionMask>
       </FilterEntry>-->
 
-      <!--<FilterEntry>
-        <ModuleMask>Calculator.Test.Unit</ModuleMask>
+        <FilterEntry>
+        <ModuleMask>Laderskab.Test.Unit</ModuleMask>
         <ClassMask>*</ClassMask>
         <FunctionMask>*</FunctionMask>
-      </FilterEntry>-->
+      </FilterEntry>
     </ExcludeFilters>
   </Filters>
   <!-- Attribute filters. It's possible to use asterisks as wildcard symbols.

@@ -62,7 +62,6 @@
     <Compile Include="StationControl\IStationControl.cs" />
     <Compile Include="USB\IUsbCharger.cs" />
     <Compile Include="StationControl\StationControl.cs" />
-    <Compile Include="USB\TestUsbChargerSimulator.cs" />
     <Compile Include="USB\UsbChargerSimulator.cs" />
   </ItemGroup>
   <ItemGroup>
