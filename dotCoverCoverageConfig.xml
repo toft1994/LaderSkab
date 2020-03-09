@@ -20,11 +20,11 @@
         <FunctionMask>*</FunctionMask>
       </FilterEntry>
 
-      <!--<FilterEntry>
-        <ModuleMask>Calculator</ModuleMask>
-        <ClassMask>Calculator.Program</ClassMask>
+      <FilterEntry>
+        <ModuleMask>Laderskab</ModuleMask>
+        <ClassMask>Laderskab.Program</ClassMask>
         <FunctionMask>*</FunctionMask>
-      </FilterEntry>-->
+      </FilterEntry>
 
         <FilterEntry>
         <ModuleMask>Laderskab.Test.Unit</ModuleMask>
