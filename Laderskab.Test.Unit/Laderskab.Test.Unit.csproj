@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RFIDReaderUnitTests.cs" />
+    <Compile Include="StationControlUnitTests.cs" />
     <Compile Include="DisplayUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
