@@ -15,18 +15,12 @@ namespace Laderskab.Door
 
         public void OnDoorOpen()
         {
-            if (_locked == false)
-            {
-                DoorOpenedEvent?.Invoke(this, null);
-            }
+            DoorOpenedEvent?.Invoke(this, null);
         }
 
         public void OnDoorClose()
         {
-            if (_locked == false)
-            {
-                DoorClosedEvent?.Invoke(this, null);
-            }
+            DoorClosedEvent?.Invoke(this, null);
         }
 
         public void LockDoor()
@@ -37,6 +31,11 @@ namespace Laderskab.Door
         public void UnlockDoor()
         {
             _locked = false;
+        }
+
+        public bool IsLocked()
+        {
+            return _locked;
         }
     }
 }
