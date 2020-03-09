@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaderSkab.ChargeControl
+namespace Laderskab.ChargeControl
 {
     public interface IChargeControl
     {

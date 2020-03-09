@@ -1,7 +1,7 @@
 ﻿using Laderskab.Display;
 using UsbSimulator;
 
-namespace LaderSkab.ChargeControl
+namespace Laderskab.ChargeControl
 {
     public class ChargeControl : IChargeControl
     {

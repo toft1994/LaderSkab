@@ -4,14 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LaderSkab.ChargeControl;
+using Laderskab.ChargeControl;
 using Laderskab.Display;
 using Laderskab.Door;
 using Laderskab.RFIDReader;
 using Laderskab.StationControl;
 using UsbSimulator;
 
-namespace Ladeskab
+namespace Laderskab.StationControl
 {
     public class StationControl : IStationControl
     {
