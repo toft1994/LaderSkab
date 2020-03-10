@@ -21,8 +21,8 @@
       </FilterEntry>
 
       <FilterEntry>
-        <ModuleMask>Laderskab.Program</ModuleMask>
-        <ClassMask>*</ClassMask>
+        <ModuleMask>Laderskab</ModuleMask>
+        <ClassMask>Laderskab.Program</ClassMask>
         <FunctionMask>*</FunctionMask>
       </FilterEntry>
 
