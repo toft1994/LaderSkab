@@ -31,6 +31,7 @@ namespace Laderskab
                 //System.Console.WriteLine("Indtast E, O, C, R: ");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
+                input = input.ToUpper();
 
                 switch (input[0])
                 {

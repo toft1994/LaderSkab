@@ -108,7 +108,7 @@ namespace Laderskab.StationControl
             }
         }
 
-        /* Handware triggere */
+        /* Hardware triggere */
         private void HandleDoorOpenedEvent(object sender, EventArgs args)
         {
             _display.CurrentMessageId = DisplayMessageId.ConnectPhone;
