@@ -3,44 +3,61 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Laderskab.ChargeControl;
+using Laderskab.Display;
+using Laderskab.Door;
+using Laderskab.RFIDReader;
 using NSubstitute;
 using NUnit.Framework;
 
 namespace Laderskab.Test.Unit
 {
     [TestFixture]
-    internal class RFIDReaderUnitTests
+    public class RFIDReaderUnitTests
     {
-        private DoorControlSystem.DoorControl _uut;
-        private IAlarm _Alarm;
-        private IUserValidation _UserValidation;
-        private IEntryNotification _EntryNotification;
-        private IDoor _Door;
+        private RFIDReader.RFIDReader _uut;
+        private IRFIDReader _RFIReader;
+        private RFIDDataEventArgs receivedArgs;
+        private int NumberOfEvents;
 
         [SetUp]
         public void SetUp()
         {
-            _Alarm = Substitute.For<IAlarm>();
-            _UserValidation = Substitute.For<IUserValidation>();
-            _EntryNotification = Substitute.For<IEntryNotification>();
-            _Door = Substitute.For<IDoor>(); ;
+            _uut = new RFIDReader.RFIDReader();
+            receivedArgs = null;
+            NumberOfEvents = 0;
 
-            _uut = new DoorControlSystem.DoorControl(_Alarm, _UserValidation, _EntryNotification, _Door);
+            _uut.RFIDEvent +=
+                (s, a) =>
+                {
+                    receivedArgs = a;
+                    ++NumberOfEvents;
+                };
         }
 
         [Test]
-        public void RequestEntry_IDisValid_OpenDoorCalled()
+        public void RFID_EventTriggered()
         {
-            // Setup
-            const string id = "Jesper";
-            _UserValidation.ValidateEntryRequest(id).Returns(true);
+            _uut.OnRfidRead(0);
+            Assert.That(receivedArgs, Is.Not.Null);
+        }
 
-            //Act
-            _uut.RequestEntry(id);
+        [TestCase(0)] //Zero Value
+        [TestCase(1)] //One value
+        [TestCase(10)] //Many value
+        [TestCase(int.MaxValue)] //Boundary value
 
-            //Assert
-            _Door.Received(1).Open();
+        public void SetRFID_CorrectData(int rfid)
+        {
+            _uut.OnRfidRead(rfid);
+            Assert.That(receivedArgs.RFIDtag, Is.EqualTo(rfid));
+        }
+
+        [Test]
+        public void SetRFID_0_IfNegative()
+        {
+            _uut.OnRfidRead(-4);
+            Assert.That(receivedArgs.RFIDtag, Is.EqualTo(0));
         }
     }
-
 }

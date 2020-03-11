@@ -12,10 +12,16 @@ namespace Laderskab.RFIDReader
 
         public void OnRfidRead(int rfid)
         {
-            var args = new RFIDDataEventArgs
+            if (rfid <= 0)
             {
+                rfid = 0;
+            }
+
+            var args = new RFIDDataEventArgs
+            { 
                 RFIDtag = rfid
             };
+            
             RFIDEvent?.Invoke(this,args);
         }
     }
