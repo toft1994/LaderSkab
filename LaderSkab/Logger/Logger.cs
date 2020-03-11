@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,24 +16,36 @@ namespace LaderSkab.Logger
     public class Logger : ILogger
     {
         //Private field
-        private List<ILog> _logs = new List<ILog>();
+        //private List<ILog> _logs = new List<ILog>();
+        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         //Methods
         public void Add(ILog log)
         {
-            _logs.Add(log);
+            using (var writer = File.AppendText(logFile))
+            {
+                writer.WriteLine(log.Date + log.Log);
+            }
+            //_logs.Add(log);
         }
 
-        public List<ILog> Get()
+        //public List<ILog> Get()
+        public string Get()
         {
-            return _logs;
+            return logFile;
         }
 
-        public int Length => _logs.Count;
+        //public int Length => _logs.Count;
 
         public void Clear()
         {
-            _logs.Clear();
+            if (File.Exists(logFile))
+            {
+                // If file found, delete it    
+                File.Delete(logFile);
+            }
+
+            //_logs.Clear();
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Laderskab.ChargeControl;
 using Laderskab.Display;
 using Laderskab.Door;
+using LaderSkab.Logger;
 using Laderskab.RFIDReader;
 using Laderskab.StationControl;
 using NSubstitute;
@@ -22,6 +23,7 @@ namespace Laderskab.Test.Unit
         private IDisplay _display;
         private IRFIDReader _rfidReader;
         private IChargeControl _chargeControl;
+        private ILogger _logger;
 
         [SetUp]
         public void SetUp()
@@ -30,7 +32,8 @@ namespace Laderskab.Test.Unit
             _display = Substitute.For<IDisplay>();
             _rfidReader = Substitute.For<IRFIDReader>();
             _chargeControl = Substitute.For<IChargeControl>();
-            _uut = new StationControl.StationControl(_door,_display,_rfidReader,_chargeControl);
+            _logger = Substitute.For<ILogger>();
+            _uut = new StationControl.StationControl(_door,_display,_rfidReader,_chargeControl,_logger);
         }
 
         [Test]
@@ -152,6 +155,19 @@ namespace Laderskab.Test.Unit
         }
 
         [Test]
+        public void HandleRfidDataEvent_PhoneConnected_LogAddCalled()
+        {
+            //Setup
+            _chargeControl.IsConnected().Returns(true);
+
+            //Act
+            _rfidReader.RFIDEvent += Raise.EventWith(new RFIDDataEventArgs { RFIDtag = 123 });
+
+            //Assert
+            _logger.Received(1).Add(Arg.Any<ClosetLog>());
+        }
+
+        [Test]
         public void HandleRfidDataEvent_WrongId_MessageIdSet()
         {
             //Setup
@@ -246,6 +262,20 @@ namespace Laderskab.Test.Unit
 
             //Assert
             Assert.That(_display.CurrentMessageId.Equals(DisplayMessageId.RemovePhone));
+        }
+
+        [Test]
+        public void HandleRfidDataEvent_CorrectId_LogAddCalled()
+        {
+            //Setup
+            _chargeControl.IsConnected().Returns(true);
+
+            //Act
+            _rfidReader.RFIDEvent += Raise.EventWith(new RFIDDataEventArgs { RFIDtag = 123 });
+            _rfidReader.RFIDEvent += Raise.EventWith(new RFIDDataEventArgs { RFIDtag = 123 });
+
+            //Assert
+            _logger.Received(2).Add(Arg.Any<ClosetLog>());
         }
     }
 }

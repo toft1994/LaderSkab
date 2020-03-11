@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,42 +26,72 @@ namespace Laderskab.Test.Unit
         [Test]
         public void OnConstruction_LenghtIsZero()
         {
-            Assert.That(_uut.Length, Is.EqualTo(0));
+            var testlogEntry = new ClosetLog
+            {
+                Date = DateTime.Now,
+                Log = "Test"
+            };
+
+            //Act
+            _uut.Add(testlogEntry);
+
+            Assert.That(File.Exists(_uut.Get()), Is.EqualTo(true));
         }
 
         [Test]
-        public void Add_ItemInList()
+        public void OnConstructisdon_LenghtIsZero()
         {
-            var item = new ClosetLog();
-            _uut.Add(item);
-            Assert.That(_uut.Get().Contains(item), Is.EqualTo(true));
-        }
+            var testlogEntry = new ClosetLog
+            {
+                Date = DateTime.Now,
+                Log = "Test"
+            };
 
-        [Test]
-        public void Add_LengthIncreasedByOne()
-        {
-            var item = new ClosetLog();
-            _uut.Add(item);
-            Assert.That(_uut.Length, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Clear_ItemListIsEmpty()
-        {
-            var item = new ClosetLog();
-            _uut.Add(item);
+            //Act
             _uut.Clear();
-            Assert.That(_uut.Get().IsNullOrEmpty(), Is.EqualTo(true));
+
+            Assert.That(File.Exists(_uut.Get()), Is.EqualTo(false));
         }
 
-        [Test]
-        public void Clear_LoggerLengthIsZero()
-        {
-            var item = new ClosetLog();
-            _uut.Add(item);
-            _uut.Clear();
-            Assert.That(_uut.Length, Is.EqualTo(0));
-        }
+        //[Test]
+        //public void OnConstruction_LenghtIsZero()
+        //{
+        //    Assert.That(_uut.Length, Is.EqualTo(0));
+        //}
+
+        //[Test]
+        //public void Add_ItemInList()
+        //{
+        //    var item = new ClosetLog();
+        //    _uut.Add(item);
+        //    Assert.That(_uut.Get().Contains(item), Is.EqualTo(true));
+        //}
+
+        //[Test]
+        //public void Add_LengthIncreasedByOne()
+        //{
+        //    var item = new ClosetLog();
+        //    _uut.Add(item);
+        //    Assert.That(_uut.Length, Is.EqualTo(1));
+        //}
+
+        //[Test]
+        //public void Clear_ItemListIsEmpty()
+        //{
+        //    var item = new ClosetLog();
+        //    _uut.Add(item);
+        //    _uut.Clear();
+        //    Assert.That(_uut.Get().IsNullOrEmpty(), Is.EqualTo(true));
+        //}
+
+        //[Test]
+        //public void Clear_LoggerLengthIsZero()
+        //{
+        //    var item = new ClosetLog();
+        //    _uut.Add(item);
+        //    _uut.Clear();
+        //    Assert.That(_uut.Length, Is.EqualTo(0));
+        //}
     }
 
     //ClosetLog

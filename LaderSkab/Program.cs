@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Laderskab.Display;
 using Laderskab.Door;
+using LaderSkab.Logger;
 using Laderskab.StationControl;
 using Laderskab.RFIDReader;
 
@@ -19,8 +20,9 @@ namespace Laderskab
             var rfidReader = new RFIDReader.RFIDReader();
             var display = new Display.Display();
             var usbCharger = new UsbSimulator.UsbChargerSimulator();
+            var logger = new Logger();
             var chargeControl = new ChargeControl.ChargeControl(display, usbCharger);
-            var stationControl = new StationControl.StationControl(door, display, rfidReader, chargeControl);
+            var stationControl = new StationControl.StationControl(door, display, rfidReader, chargeControl, logger);
 
             bool finish = false;
             do
@@ -34,6 +36,7 @@ namespace Laderskab
                 {
                     case 'E':
                         finish = true;
+                        logger.Clear();
                         break;
 
                     case 'O':

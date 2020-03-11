@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Laderskab.ChargeControl;
 using Laderskab.Display;
 using Laderskab.Door;
+using LaderSkab.Logger;
 using Laderskab.RFIDReader;
 using Laderskab.StationControl;
 using UsbSimulator;
@@ -27,17 +28,19 @@ namespace Laderskab.StationControl
         private IDoor _door;
         private IDisplay _display;
         private IRFIDReader _rfidReader;
+        private ILogger _logger;
 
         private LadeskabState _state;
         private int _oldId;
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
-        public StationControl(IDoor door, IDisplay display, IRFIDReader rfid, IChargeControl charger)
+        public StationControl(IDoor door, IDisplay display, IRFIDReader rfid, IChargeControl charger, ILogger logger)
         {
             _door = door;
             _display = display;
             _rfidReader = rfid;
             _chargeControl = charger;
+            _logger = logger;
 
             /* Subscribe to event */
             _door.DoorOpenedEvent += HandleDoorOpenedEvent;
@@ -57,10 +60,13 @@ namespace Laderskab.StationControl
                         _door.LockDoor();
                         _chargeControl.StartCharge();
                         _oldId = id;
-                        using (var writer = File.AppendText(logFile))
+
+                        var logEntry = new ClosetLog
                         {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
-                        }
+                            Date = DateTime.Now,
+                            Log = ": Skab låst med RFID: " + id.ToString()
+                        };
+                        _logger.Add(logEntry);
 
                         _state = LadeskabState.Locked;
                         _display.CurrentMessageId = DisplayMessageId.SlotTaken;
@@ -80,10 +86,13 @@ namespace Laderskab.StationControl
                     {
                         _chargeControl.StopCharge();
                         _door.UnlockDoor();
-                        using (var writer = File.AppendText(logFile))
+
+                        var logEntry = new ClosetLog
                         {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
-                        }
+                            Date = DateTime.Now,
+                            Log = ": Skab låst op med RFID: " + id.ToString()
+                        };
+                        _logger.Add(logEntry);
 
                         _display.CurrentMessageId = DisplayMessageId.RemovePhone;
                         _display.UpdateDisplay();
