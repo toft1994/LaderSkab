@@ -55,6 +55,8 @@
     <Compile Include="Display\IDisplay.cs" />
     <Compile Include="Door\Door.cs" />
     <Compile Include="Door\IDoor.cs" />
+    <Compile Include="Logger\ILogger.cs" />
+    <Compile Include="Logger\Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RFIDReader\IRFIDReader.cs" />
@@ -62,7 +64,6 @@
     <Compile Include="StationControl\IStationControl.cs" />
     <Compile Include="USB\IUsbCharger.cs" />
     <Compile Include="StationControl\StationControl.cs" />
-    <Compile Include="USB\TestUsbChargerSimulator.cs" />
     <Compile Include="USB\UsbChargerSimulator.cs" />
   </ItemGroup>
   <ItemGroup>

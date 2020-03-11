@@ -73,11 +73,7 @@ namespace Laderskab.StationControl
                     }
 
                     break;
-
-                case LadeskabState.DoorOpen:
-                    // Ignore
-                    break;
-
+                
                 case LadeskabState.Locked:
                     // Check for correct ID
                     if (id == _oldId)
@@ -103,7 +99,7 @@ namespace Laderskab.StationControl
             }
         }
 
-        /* Handware triggere */
+        /* Hardware triggere */
         private void HandleDoorOpenedEvent(object sender, EventArgs args)
         {
             _display.CurrentMessageId = DisplayMessageId.ConnectPhone;

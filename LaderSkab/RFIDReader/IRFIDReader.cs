@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Laderskab.RFIDReader
 {
-    public class RFIDDataEventArgs
+    public class RFIDDataEventArgs : EventArgs
     {
         public int RFIDtag { get; set; }
     }
