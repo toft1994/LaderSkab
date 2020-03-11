@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChargeControlUnitTests.cs" />
     <Compile Include="DoorUnitTests.cs" />
     <Compile Include="LoggerUnitTests.cs" />
     <Compile Include="StationControlUnitTests.cs" />
