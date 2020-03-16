@@ -20,7 +20,7 @@ namespace Laderskab.Display
 
         public void UpdateDisplay()
         {
-            //Console.Clear();
+            Console.Clear();
             Console.WriteLine("------------------------------------");
             Console.WriteLine("General information:");
             DisplayInfoMessage(CurrentMessageId);

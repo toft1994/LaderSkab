@@ -15,8 +15,6 @@ namespace LaderSkab.Logger
 
     public class Logger : ILogger
     {
-        //Private field
-        //private List<ILog> _logs = new List<ILog>();
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         //Methods
@@ -26,16 +24,12 @@ namespace LaderSkab.Logger
             {
                 writer.WriteLine(log.Date + log.Log);
             }
-            //_logs.Add(log);
         }
 
-        //public List<ILog> Get()
         public string Get()
         {
             return logFile;
         }
-
-        //public int Length => _logs.Count;
 
         public void Clear()
         {
@@ -44,8 +38,6 @@ namespace LaderSkab.Logger
                 // If file found, delete it    
                 File.Delete(logFile);
             }
-
-            //_logs.Clear();
         }
     }
 }
