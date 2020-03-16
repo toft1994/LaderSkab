@@ -79,6 +79,10 @@ namespace Laderskab.StationControl
                     }
 
                     break;
+
+                case LadeskabState.DoorOpen:
+
+                    break;
                 
                 case LadeskabState.Locked:
                     // Check for correct ID
@@ -111,11 +115,13 @@ namespace Laderskab.StationControl
         /* Hardware triggere */
         private void HandleDoorOpenedEvent(object sender, EventArgs args)
         {
+            _state = LadeskabState.DoorOpen;
             _display.CurrentMessageId = DisplayMessageId.ConnectPhone;
             _display.UpdateDisplay();
         }
         private void HandleDoorCloseEvent(object sender, EventArgs args)
         {
+            _state = LadeskabState.Available;
             _display.CurrentMessageId = DisplayMessageId.Nothing;
             _display.UpdateDisplay();
         }
