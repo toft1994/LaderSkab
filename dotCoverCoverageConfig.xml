@@ -26,6 +26,12 @@
         <FunctionMask>*</FunctionMask>
       </FilterEntry>
 
+      <FilterEntry>
+        <ModuleMask>LaderSkab</ModuleMask>
+        <ClassMask>Laderskab.Display</ClassMask>
+        <FunctionMask>*</FunctionMask>
+      </FilterEntry>
+
         <FilterEntry>
         <ModuleMask>Laderskab.Test.Unit</ModuleMask>
         <ClassMask>*</ClassMask>

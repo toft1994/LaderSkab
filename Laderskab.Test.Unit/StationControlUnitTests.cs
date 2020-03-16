@@ -77,7 +77,7 @@ namespace Laderskab.Test.Unit
         }
 
         [Test]
-        public void HandleRfidDataEvent_DoorIsOpen()
+        public void HandleRfidDataEvent_DoorIsOpen_RFIDDetected()
         {
             //Act
             _door.DoorOpenedEvent += Raise.Event();
@@ -231,20 +231,6 @@ namespace Laderskab.Test.Unit
 
             //Assert
             _door.Received(1).UnlockDoor();
-        }
-
-        [Test]
-        public void HandleRfidDataEvent_CorrectId_AddCalled()
-        {
-            //Setup
-            _chargeControl.IsConnected().Returns(true);
-
-            //Act
-            _rfidReader.RFIDEvent += Raise.EventWith(new RFIDDataEventArgs { RFIDtag = 123 });
-            _rfidReader.RFIDEvent += Raise.EventWith(new RFIDDataEventArgs { RFIDtag = 123 });
-
-            //Assert
-            //_door.Received(1).UnlockDoor();
         }
 
         [Test]
