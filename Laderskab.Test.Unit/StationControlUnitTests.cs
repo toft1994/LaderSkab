@@ -77,6 +77,17 @@ namespace Laderskab.Test.Unit
         }
 
         [Test]
+        public void HandleRfidDataEvent_DoorIsOpen()
+        {
+            //Act
+            _door.DoorOpenedEvent += Raise.Event();
+            _rfidReader.RFIDEvent += Raise.EventWith(new RFIDDataEventArgs { RFIDtag = 123 });
+
+            //Assert
+            Assert.That(_display.CurrentMessageId.Equals(DisplayMessageId.Nothing));
+        }
+
+        [Test]
         public void HandleRfidDataEvent_PhoneNotConnected_UpdateDisplayCalled()
         {
             //Setup

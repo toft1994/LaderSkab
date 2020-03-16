@@ -115,15 +115,21 @@ namespace Laderskab.StationControl
         /* Hardware triggere */
         private void HandleDoorOpenedEvent(object sender, EventArgs args)
         {
-            _state = LadeskabState.DoorOpen;
-            _display.CurrentMessageId = DisplayMessageId.ConnectPhone;
-            _display.UpdateDisplay();
+            if (_state == LadeskabState.Available)
+            {
+                _state = LadeskabState.DoorOpen;
+                _display.CurrentMessageId = DisplayMessageId.ConnectPhone;
+                _display.UpdateDisplay();
+            }
         }
         private void HandleDoorCloseEvent(object sender, EventArgs args)
         {
-            _state = LadeskabState.Available;
-            _display.CurrentMessageId = DisplayMessageId.Nothing;
-            _display.UpdateDisplay();
+            if (_state == LadeskabState.DoorOpen || _state == LadeskabState.Available)
+            {
+                _state = LadeskabState.Available;
+                _display.CurrentMessageId = DisplayMessageId.WaitingRfid;
+                _display.UpdateDisplay();
+            }
         }
         private void HandleRfidDataEvent(object sender, RFIDDataEventArgs args)
         {

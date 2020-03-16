@@ -13,7 +13,7 @@ namespace Laderskab.Display
 
         public Display()
         {
-            CurrentMessageId = DisplayMessageId.Nothing;
+            CurrentMessageId = DisplayMessageId.WaitingRfid;
             CurrentChargeId = DisplayChargeId.Nothing;
             UpdateDisplay();
         }
