@@ -28,7 +28,7 @@
 
       <FilterEntry>
         <ModuleMask>LaderSkab</ModuleMask>
-        <ClassMask>Laderskab.Display/Display</ClassMask>
+        <ClassMask>Laderskab.Display.Display</ClassMask>
         <FunctionMask>*</FunctionMask>
       </FilterEntry>
 
