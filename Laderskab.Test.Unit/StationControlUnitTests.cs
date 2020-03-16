@@ -73,7 +73,7 @@ namespace Laderskab.Test.Unit
             _door.DoorClosedEvent += Raise.Event();
 
             //Assert
-            Assert.That(_display.CurrentMessageId.Equals(DisplayMessageId.Nothing));
+            Assert.That(_display.CurrentMessageId.Equals(DisplayMessageId.WaitingRfid));
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace Laderskab.Test.Unit
             _rfidReader.RFIDEvent += Raise.EventWith(new RFIDDataEventArgs { RFIDtag = 123 });
 
             //Assert
-            Assert.That(_display.CurrentMessageId.Equals(DisplayMessageId.Nothing));
+            Assert.That(_display.CurrentMessageId.Equals(DisplayMessageId.ConnectPhone));
         }
 
         [Test]
