@@ -9,8 +9,6 @@ using Laderskab.Display;
 using Laderskab.Door;
 using LaderSkab.Logger;
 using Laderskab.RFIDReader;
-using Laderskab.StationControl;
-using UsbSimulator;
 
 namespace Laderskab.StationControl
 {
